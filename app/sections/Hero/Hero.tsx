@@ -67,21 +67,14 @@ export function Hero({ side }: HeroProps) {
             }}
           />
 
-          {/* Bottom scrim, ramps from mid-photo to the cream surface so the text zone is clean */}
+          {/* Thin bottom fade only at the very edge so the photo bleeds cleanly
+              into the cream surface of the next section. Photo remains dominant. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 md:hidden"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 md:h-44"
             style={{
               background:
-                "linear-gradient(180deg, transparent 50%, rgba(237,230,216,0.55) 70%, var(--color-paper-50) 100%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none hidden md:block absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, transparent 55%, rgba(237,230,216,0.5) 75%, var(--color-paper-50) 100%)",
+                "linear-gradient(180deg, transparent 0%, rgba(237,230,216,0.35) 60%, var(--color-paper-50) 100%)",
             }}
           />
         </motion.div>
@@ -127,18 +120,33 @@ export function Hero({ side }: HeroProps) {
         </span>
       </motion.div>
 
-      {/* Type overlay anchored to the bottom zone, where the dress area sits in both photos */}
+      {/* Names overlay — same internal layout on both viewports (groom left, & centered,
+          bride right). Wrapper is full-width on mobile and confined to the right half
+          of the section on desktop. */}
       <motion.div
         style={{ y: typeY, opacity: typeOpacity }}
-        className="absolute inset-x-0 bottom-0 z-10 px-4 md:px-12 pb-24 md:pb-28"
+        className="pointer-events-none absolute bottom-0 z-10 left-0 right-0 md:left-1/2 md:right-12 px-4 md:px-0 pb-32 md:pb-28"
       >
-        <h1 className="font-script text-[var(--color-ink-900)] flex flex-col items-stretch">
+        <h1
+          className="font-script flex flex-col items-stretch"
+          style={{
+            color: "var(--color-ink-900)",
+            // Soft white glow so the dark type stays legible over dark areas
+            // of the photo (groom's vest, deep shadows). Layered shadows: a wide
+            // diffuse halo plus a tight inner glow.
+            textShadow:
+              "0 0 32px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 1px 2px rgba(255,255,255,0.6)",
+          }}
+        >
           <motion.span
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 0.9, ease: easeExpoOut }}
-            className="block self-start whitespace-nowrap"
-            style={{ fontSize: "clamp(4.5rem,15vw,9rem)", lineHeight: "1.0", paddingBlock: "0.04em" }}
+            className="block self-start whitespace-nowrap text-[clamp(4.5rem,15vw,9rem)] md:text-[clamp(4.5rem,7.5vw,7rem)]"
+            style={{
+              lineHeight: "1.0",
+              paddingBlock: "0.04em",
+            }}
           >
             Gia Khôi
           </motion.span>
@@ -147,11 +155,9 @@ export function Hero({ side }: HeroProps) {
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.4, delay: 1.5, ease: easeExpoOut }}
-            className="block self-start ml-[18%] md:self-center md:ml-0 my-[-0.15em]"
+            className="block self-center my-[-0.15em] text-[clamp(3rem,7vw,5rem)] md:text-[clamp(3rem,4.5vw,4rem)]"
             style={{
-              fontSize: "clamp(3rem,7vw,5rem)",
               lineHeight: "1.0",
-              color: "var(--color-rose)",
               fontFamily: "var(--font-script)",
             }}
           >
@@ -162,19 +168,28 @@ export function Hero({ side }: HeroProps) {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 1.7, ease: easeExpoOut }}
-            className="block ml-[8%] md:ml-0 md:self-end md:text-right whitespace-nowrap"
-            style={{ fontSize: "clamp(4rem,14vw,8.5rem)", lineHeight: "1.0", paddingBlock: "0.04em" }}
+            className="block self-end text-right whitespace-nowrap text-[clamp(4rem,14vw,8.5rem)] md:text-[clamp(4rem,7vw,6.5rem)]"
+            style={{
+              lineHeight: "1.0",
+              paddingBlock: "0.04em",
+            }}
           >
             Huyền Trân
           </motion.span>
         </h1>
+      </motion.div>
 
-        {/* Mobile-only ceremony date strip */}
+      {/* Mobile-only ceremony date strip — sits at the very bottom of the hero, above the
+          year mark / scroll cue but below the names block. */}
+      <motion.div
+        style={{ y: typeY, opacity: typeOpacity }}
+        className="md:hidden absolute inset-x-0 bottom-0 z-10 px-4 pb-16"
+      >
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 2.4, ease: easeExpoOut }}
-          className="md:hidden mt-8 flex items-baseline gap-3"
+          className="flex items-baseline gap-3"
         >
           <span className="text-[0.7rem] font-medium tracking-[0.4em] uppercase text-[var(--color-ink-700)] whitespace-nowrap">
             {side.ceremony.label}
