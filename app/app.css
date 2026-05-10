@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GIA KHÔI & HUYỀN TRÂN — Design tokens
+   Palette extracted from the studio photo set:
+   warm cream paper, soft warm ink, single rose accent.
+   Display: Prata (Didone, Vietnamese, high-contrast).
+   Body:    Be Vietnam Pro (Vietnamese-native sans).
+   ============================================================ */
+
+@theme {
+  /* Background, sophisticated linen palette.
+     Lower chroma than typical "wedding cream" to read as modern + couture
+     instead of dated greeting-card. Page alternates white and warm linen. */
+  --color-paper-50:  oklch(0.987 0.0025 80); /* paper white, breath of warmth */
+  --color-paper-100: oklch(0.962 0.0070 75); /* light linen */
+  --color-paper-200: oklch(0.916 0.0125 70); /* warm linen, paper feel */
+  --color-paper-300: oklch(0.852 0.0170 65); /* champagne taupe accent */
+  --color-paper-400: oklch(0.710 0.0210 60); /* deep stone taupe */
+
+  /* Foreground, slightly cooler warm ink for sophistication */
+  --color-ink-950: oklch(0.140 0.005 55);    /* deepest, sparingly */
+  --color-ink-900: oklch(0.185 0.006 55);    /* primary text */
+  --color-ink-800: oklch(0.265 0.007 55);    /* heading subordinate */
+  --color-ink-700: oklch(0.380 0.008 55);    /* body */
+  --color-ink-500: oklch(0.530 0.010 58);    /* labels, eyebrows */
+  --color-ink-400: oklch(0.660 0.012 60);    /* hairlines, muted */
+
+  /* Accent: softer rose, desaturated, sophisticated */
+  --color-rose:  oklch(0.530 0.050 25);      /* primary accent (ampersand) */
+  --color-rose-soft: oklch(0.720 0.035 30);
+
+  /* Type families */
+  --font-sans: "Be Vietnam Pro", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Prata", "Times New Roman", Georgia, serif;
+  --font-script: "Pinyon Script", "Be Vietnam Pro", cursive;
+
+  /* Fluid scale — modular ratio ~1.333 */
+  --text-xs:    clamp(0.75rem,  0.7rem  + 0.2vw, 0.875rem);
+  --text-sm:    clamp(0.875rem, 0.8rem  + 0.3vw, 1rem);
+  --text-base:  clamp(1rem,     0.95rem + 0.4vw, 1.125rem);
+  --text-lg:    clamp(1.25rem,  1.1rem  + 0.6vw, 1.5rem);
+  --text-xl:    clamp(1.5rem,   1.3rem  + 0.9vw, 2rem);
+  --text-2xl:   clamp(2rem,     1.6rem  + 1.6vw, 3rem);
+  --text-3xl:   clamp(3rem,     2.2rem  + 3vw,   5rem);
+  --text-4xl:   clamp(4rem,     3rem    + 4vw,   7rem);
+  --text-luxury: clamp(3.5rem,  2rem    + 8vw,  11rem); /* Prata hero scale */
+
+  /* Easing */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart-out: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html {
+  background: var(--color-paper-50);
+  color: var(--color-ink-700);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  background: var(--color-paper-50);
+  color: var(--color-ink-700);
+  min-height: 100dvh;
+  font-weight: 300;
+  line-height: 1.55;
+  font-feature-settings: "ss01", "ss02";
+}
+
+/* Vietnamese diacritics need extra room at display weight */
+.font-display {
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  padding-block: 0.05em;
+}
+
+/* Prata — the elegant Didone display.
+   Used at large sizes only (couple names, ceremony names). */
+.font-luxury {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  padding-block: 0.08em;
+}
+
+/* Italic gestural moments use Be Vietnam Pro italic */
+.font-italic-light {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Pinyon Script — the flying name moment.
+   Used only at large sizes (couple-name reveals). */
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: 0;
+  padding-block: 0.18em; /* descenders need clearance */
+}
+
+::selection {
+  background: var(--color-ink-900);
+  color: var(--color-paper-50);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-ink-900);
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }

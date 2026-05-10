@@ -1,0 +1,12 @@
+.DS_Store
+.env
+/node_modules/
+
+# React Router
+/.react-router/
+/build/
+
+# Raw photographer originals — too big to commit; keep in cloud storage,
+# build pipeline reads them locally and emits optimized variants under public/photos/
+/public/LD3_*.jpg
+/public/photos/originals/
