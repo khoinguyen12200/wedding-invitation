@@ -9,28 +9,30 @@ interface VermilionSealProps {
   header?: string;
   /** Bottom date strip — already-formatted display string. */
   date?: string;
-  size?: number;
 }
 
-/* Son-đỏ ceremonial seal — multi-stage choreographed entrance.
+/* Son-đỏ ceremonial card — traditional thiệp hồng proportion (2:1 landscape).
 
-   The seal builds itself in front of the reader rather than just stamping
-   in:
+   The card lays out as a long horizontal frame, the way a real folded
+   thiệp hồng reads when opened: the 囍 (Song Hỷ / Double Happiness) seal
+   anchors the left third like an ấn son pressed onto the page; the names
+   sit on the right where the recipient's eye lands; "TÂN HÔN" tops the
+   card and the date strip closes it at the bottom.
 
-     1. Outer thick frame draws clockwise from the top-center (pathLength
-        animation) — the "registration mark" of a real ceremonial press.
-     2. A faint mid-hairline frame draws on top while (1) is still drawing.
-     3. The inner medium frame draws.
+   The component is fluid-width — it fills its parent and locks a 2:1
+   aspect ratio. The parent controls max width.
+
+   Multi-stage choreographed entrance:
+     1-3. Three concentric frames draw clockwise from the top-center.
      4. Four cloud-spiral corners fade in, staggered.
-     5. The "TÂN HÔN" header banner reveals.
-     6. The 囍 (Song Hỷ / Double Happiness) character STAMPS in — scale 0.4 →
-        1.06 → 1.0 (overshoot then settle), rotation jiggle, opacity. This is
-        the climactic moment.
-     7. Names line and date strip settle in.
-     8. Two ink-bleed haloes bloom outward, low-alpha, layered, so the seal
-        reads as ink soaking into the paper.
-     9. The diagonal ink-grain pattern crossfades in last so the surface
-        reads as pressed paper instead of a flat vector.
+     5. Header banner "TÂN HÔN" reveals.
+     6. The 囍 STAMPS in — scale 0.4 → 1.06 → 1.0 with a rotation jiggle.
+        Climactic moment.
+     7. Names line settles in beside the stamp.
+     8. Date strip settles in.
+     9. Two ink-bleed haloes bloom outward, low-alpha, layered.
+     10. Diagonal ink-grain pattern crossfades in last so the surface
+         reads as pressed paper instead of a flat vector.
 
    Reduced motion drops to a single 0.6s opacity fade-in for the whole
    thing — no choreography, no transforms. */
@@ -39,7 +41,6 @@ export function VermilionSeal({
   bride,
   header = "TÂN HÔN",
   date = "02 · 08 · MMXXVI",
-  size = 320,
 }: VermilionSealProps) {
   const reduceMotion = useReducedMotion();
 
@@ -53,14 +54,14 @@ export function VermilionSeal({
 
   return (
     <motion.div
-      style={{ width: size, height: size }}
-      className="relative inline-block"
+      className="relative block w-full aspect-[2/1]"
       aria-label={`Ấn son ${groom} và ${bride}`}
     >
       {/* Ink-bleed haloes — soft vermilion fog. Bloom outward AFTER the 囍
-          stamps so it reads as ink soaking into the paper.
-          Two layered blurs at different scales/durations give the bleed
-          depth and movement. */}
+          stamps so it reads as ink soaking into the paper. Two layered blurs
+          at different scales/durations give the bleed depth and movement.
+          The haloes follow the card's elongated shape, so the fog feels
+          like ink soaking into a long folded thiệp. */}
       <motion.span
         aria-hidden
         initial={{ opacity: 0, scale: 1.0 }}
@@ -81,10 +82,9 @@ export function VermilionSeal({
       />
 
       <svg
-        viewBox="0 0 240 240"
-        width={size}
-        height={size}
-        className="relative block"
+        viewBox="0 0 480 240"
+        className="relative block w-full h-full"
+        preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
       >
         <defs>
@@ -109,10 +109,9 @@ export function VermilionSeal({
           </symbol>
         </defs>
 
-        {/* (1) OUTER thick frame — first stroke laid down. The pathLength
-            animation strokes the perimeter on. */}
+        {/* (1) OUTER thick frame — first stroke laid down. */}
         <motion.rect
-          x="4" y="4" width="232" height="232"
+          x="4" y="4" width="472" height="232"
           fill="none"
           stroke="var(--color-seal)"
           strokeWidth="3"
@@ -127,10 +126,9 @@ export function VermilionSeal({
           })}
         />
 
-        {/* (2) MID hairline frame — drawn while the outer is still being
-            laid down, so the two feel like a single confident gesture. */}
+        {/* (2) MID hairline frame */}
         <motion.rect
-          x="13" y="13" width="214" height="214"
+          x="13" y="13" width="454" height="214"
           fill="none"
           stroke="var(--color-seal)"
           strokeWidth="0.5"
@@ -143,10 +141,9 @@ export function VermilionSeal({
           })}
         />
 
-        {/* (3) INNER medium frame — the "page" frame, where the header banner
-            and date strip will break out from. */}
+        {/* (3) INNER medium frame */}
         <motion.rect
-          x="22" y="22" width="196" height="196"
+          x="22" y="22" width="436" height="196"
           fill="none"
           stroke="var(--color-seal)"
           strokeWidth="1.4"
@@ -158,23 +155,22 @@ export function VermilionSeal({
           })}
         />
 
-        {/* (4) CLOUD-SPIRAL CORNERS — staggered fade. Outer wrapping `<g>`
+        {/* (4) CLOUD-SPIRAL CORNERS — staggered fade. Outer wrapping <g>
             holds the static rotation so each corner faces the seal's
-            interior; inner motion.use carries the entrance. */}
+            interior. */}
         <CloudCorner x={26} y={26} delay={1.15} viewport={viewport} reduceMotion={reduceMotion} />
-        <g transform="rotate(90 203 37)">
-          <CloudCorner x={192} y={26} delay={1.23} viewport={viewport} reduceMotion={reduceMotion} />
+        <g transform="rotate(90 443 37)">
+          <CloudCorner x={432} y={26} delay={1.23} viewport={viewport} reduceMotion={reduceMotion} />
         </g>
-        <g transform="rotate(180 203 203)">
-          <CloudCorner x={192} y={192} delay={1.31} viewport={viewport} reduceMotion={reduceMotion} />
+        <g transform="rotate(180 443 203)">
+          <CloudCorner x={432} y={192} delay={1.31} viewport={viewport} reduceMotion={reduceMotion} />
         </g>
         <g transform="rotate(270 37 203)">
           <CloudCorner x={26} y={192} delay={1.39} viewport={viewport} reduceMotion={reduceMotion} />
         </g>
 
-        {/* (5) HEADER BANNER — paper-colored rect that masks the inner frame
-            so the eyebrow rules read as if the header is carved out. The
-            white rect, side rules, and "TÂN HÔN" text all reveal together. */}
+        {/* (5) HEADER BANNER — TÂN HÔN at top center, flanked by short
+            hairlines that break out of the inner frame. */}
         <motion.g
           {...(rmFade ?? {
             initial: { opacity: 0 },
@@ -183,11 +179,11 @@ export function VermilionSeal({
             transition: { duration: 0.5, delay: 1.55, ease: easeExpoOut },
           })}
         >
-          <rect x="80" y="34" width="80" height="20" fill="var(--color-paper-50)" />
-          <line x1="56" y1="44" x2="80" y2="44" stroke="var(--color-seal)" strokeWidth="0.6" opacity="0.65" />
-          <line x1="160" y1="44" x2="184" y2="44" stroke="var(--color-seal)" strokeWidth="0.6" opacity="0.65" />
+          <rect x="200" y="34" width="80" height="20" fill="var(--color-paper-50)" />
+          <line x1="160" y1="44" x2="200" y2="44" stroke="var(--color-seal)" strokeWidth="0.6" opacity="0.65" />
+          <line x1="280" y1="44" x2="320" y2="44" stroke="var(--color-seal)" strokeWidth="0.6" opacity="0.65" />
           <text
-            x="120" y="49"
+            x="240" y="49"
             textAnchor="middle"
             fontFamily="'Be Vietnam Pro', sans-serif"
             fontWeight="900"
@@ -199,11 +195,12 @@ export function VermilionSeal({
           </text>
         </motion.g>
 
-        {/* (6) THE 囍 STAMP — climactic moment. Scale keyframes give an
-            overshoot-and-settle. The faint backing circle fades in slightly
-            ahead so the character stamps onto a clear field. */}
+        {/* (6) THE 囍 STAMP — anchored on the left third, like an ấn son
+            pressed onto the page. Scale keyframes give an overshoot-and-
+            settle; the faint backing circle fades in slightly ahead so the
+            character stamps onto a clear field. */}
         <motion.circle
-          cx="120" cy="120" r="44"
+          cx="98" cy="120" r="44"
           fill="var(--color-paper-50)"
           opacity="0.92"
           {...(rmFade ?? {
@@ -214,7 +211,7 @@ export function VermilionSeal({
           })}
         />
         <motion.text
-          x="120" y="142"
+          x="98" y="142"
           textAnchor="middle"
           fontFamily="'Songti SC', 'STSong', 'SimSun', 'Noto Serif CJK SC', 'Noto Serif TC', serif"
           fontWeight="400"
@@ -222,7 +219,7 @@ export function VermilionSeal({
           fill="var(--color-seal)"
           style={{
             fontFeatureSettings: "'palt' 1",
-            transformOrigin: "120px 120px",
+            transformOrigin: "98px 120px",
             transformBox: "view-box",
           }}
           {...(rmFade ?? {
@@ -239,14 +236,15 @@ export function VermilionSeal({
           囍
         </motion.text>
 
-        {/* (7) NAMES — settle in after the stamp. */}
+        {/* (7) NAMES — single line on the right of the stamp, vertically
+            centered to the 囍. */}
         <motion.text
-          x="120" y="182"
+          x="308" y="124"
           textAnchor="middle"
           fontFamily="'Be Vietnam Pro', sans-serif"
           fontWeight="700"
-          fontSize="10"
-          letterSpacing="3.2"
+          fontSize="12"
+          letterSpacing="2.8"
           fill="var(--color-seal)"
           {...(rmFade ?? {
             initial: { opacity: 0 },
@@ -258,8 +256,8 @@ export function VermilionSeal({
           {`${groom.toUpperCase()}  ·  ${bride.toUpperCase()}`}
         </motion.text>
 
-        {/* (8) DATE STRIP — paper rect breaks out of the inner frame; date
-            text rests in it. Both fade in just after the names. */}
+        {/* (8) DATE STRIP — paper rect breaks out of the inner frame at the
+            bottom; date text rests in it. */}
         <motion.g
           {...(rmFade ?? {
             initial: { opacity: 0 },
@@ -268,9 +266,9 @@ export function VermilionSeal({
             transition: { duration: 0.5, delay: 2.65, ease: easeExpoOut },
           })}
         >
-          <rect x="80" y="196" width="80" height="20" fill="var(--color-paper-50)" />
+          <rect x="200" y="196" width="80" height="20" fill="var(--color-paper-50)" />
           <text
-            x="120" y="211"
+            x="240" y="211"
             textAnchor="middle"
             fontFamily="'Be Vietnam Pro', sans-serif"
             fontWeight="500"
@@ -283,11 +281,10 @@ export function VermilionSeal({
           </text>
         </motion.g>
 
-        {/* (9) INK GRAIN — multiplied over the whole inner field. Crossfades
-            in last so the seal lands as a pressed-paper artifact instead of
-            a flat vector. */}
+        {/* (9) INK GRAIN — multiplied over the whole inner field, crossfades
+            in last so the seal lands as a pressed-paper artifact. */}
         <motion.rect
-          x="13" y="13" width="214" height="214"
+          x="13" y="13" width="454" height="214"
           fill="url(#seal-grain)"
           opacity="0.16"
           style={{ mixBlendMode: "multiply" }}
@@ -303,8 +300,7 @@ export function VermilionSeal({
   );
 }
 
-/* One stagger-fading cloud-spiral corner. Pure opacity; no scale, so we don't
-   need to worry about transform-origin compositing on SVG `<use>`. */
+/* One stagger-fading cloud-spiral corner. */
 function CloudCorner({
   x,
   y,

@@ -55,17 +55,20 @@ export function Families() {
           </p>
         </ScrollReveal>
 
-        {/* Son-đỏ ceremonial stamp — the page's only saturated color, used
-            once. Multi-stage choreographed entrance: borders draw on, corners
+        {/* Son-đỏ ceremonial card — the page's only saturated color, used
+            once. Traditional thiệp hồng 2:1 landscape proportion: 囍 stamp
+            anchors the left, names sit on the right, header tops the card.
+            Multi-stage choreographed entrance: borders draw on, corners
             stagger in, header banner reveals, the 囍 stamps in with overshoot
             as the climactic moment, ink haloes bloom outward last. */}
         <div className="mt-16 md:mt-24 flex justify-center">
-          <VermilionSeal
-            groom="Gia Khôi"
-            bride="Huyền Trân"
-            date="02 · 08 · MMXXVI"
-            size={320}
-          />
+          <div className="w-full max-w-[560px]">
+            <VermilionSeal
+              groom="Gia Khôi"
+              bride="Huyền Trân"
+              date="02 · 08 · MMXXVI"
+            />
+          </div>
         </div>
 
         <ScrollReveal delay={0.4}>
