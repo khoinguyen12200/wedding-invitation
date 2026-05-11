@@ -1,0 +1,39 @@
+# Cloud Build pipeline for Gia Khôi & Huyền Trân wedding invitation.
+#
+# Fired by the "deploy-on-tag" trigger when a tag matching v* is pushed
+# to GitHub. The site is a static SPA (ssr: false), so the pipeline
+# builds with Vite and deploys to Firebase Hosting — no container, no
+# Cloud Run.
+#
+# Pipeline:
+#   1. Install deps and build the SPA into build/client.
+#   2. Deploy build/client to Firebase Hosting site `gk-ht`.
+
+steps:
+  - id: build
+    name: node:22-slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        npm ci
+        npm run build
+
+  - id: deploy
+    name: node:22-slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        npm install -g firebase-tools@latest
+        firebase deploy \
+          --only hosting \
+          --project "$PROJECT_ID" \
+          --non-interactive \
+          --message "Tag: ${TAG_NAME}"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
