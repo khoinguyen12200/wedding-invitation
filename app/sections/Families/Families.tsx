@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ScrollReveal } from "../../components/ScrollReveal";
-import { FloralMark } from "../../components/FloralMark";
+import { VermilionSeal } from "../../components/VermilionSeal";
 import { sides } from "../../content/sides";
 import { easeExpoOut } from "../../lib/motion";
 
@@ -34,6 +34,7 @@ export function Families() {
             mother={sides.groom.parents.mother}
             address={sides.groom.address}
             align="md:text-right md:pr-16"
+            hairlineAlign="md:mx-0 md:ml-auto md:mr-0"
             delay={0.2}
           />
           <FamilyColumn
@@ -42,30 +43,35 @@ export function Families() {
             mother={sides.bride.parents.mother}
             address={sides.bride.address}
             align="md:text-left md:pl-16"
+            hairlineAlign="md:mx-0 md:ml-0 md:mr-auto"
             delay={0.4}
           />
         </div>
 
-        <ScrollReveal delay={0.2}>
-          <div className="mt-20 md:mt-28 flex justify-center text-[var(--color-ink-700)]">
-            <FloralMark size={36} />
-          </div>
-        </ScrollReveal>
-
         <ScrollReveal delay={0.3}>
-          <p className="mt-10 text-center font-light text-[var(--color-ink-700)] max-w-xl mx-auto leading-[1.7] text-[1.0625rem] md:text-[1.125rem]">
+          <p className="mt-24 md:mt-32 text-center font-light text-[var(--color-ink-700)] max-w-xl mx-auto leading-[1.7] text-[1.0625rem] md:text-[1.125rem]">
             Trân trọng kính mời quý quan khách đến chung vui cùng gia đình
             chúng tôi trong ngày lễ thành hôn của hai con:
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.5}>
-          <h2
-            className="font-script mt-12 md:mt-16 text-center text-[var(--color-ink-900)]"
-            style={{ fontSize: "clamp(3.5rem,2rem+7vw,9rem)", textWrap: "balance", lineHeight: "1.0" }}
-          >
-            Gia Khôi <span style={{ color: "var(--color-rose)" }}>&amp;</span> Huyền Trân
-          </h2>
+        {/* Son-đỏ ceremonial stamp — the page's only saturated color, used
+            once. Multi-stage choreographed entrance: borders draw on, corners
+            stagger in, header banner reveals, the 囍 stamps in with overshoot
+            as the climactic moment, ink haloes bloom outward last. */}
+        <div className="mt-16 md:mt-24 flex justify-center">
+          <VermilionSeal
+            groom="Gia Khôi"
+            bride="Huyền Trân"
+            date="02 · 08 · MMXXVI"
+            size={320}
+          />
+        </div>
+
+        <ScrollReveal delay={0.4}>
+          <p className="mt-12 text-center text-[0.65rem] md:text-xs font-medium tracking-[0.5em] uppercase text-[var(--color-ink-500)]">
+            ấn son · 02 · 08 · 2026
+          </p>
         </ScrollReveal>
       </div>
     </section>
@@ -77,17 +83,23 @@ interface FamilyColumnProps {
   father: string;
   mother: string;
   address: { street: string; ward: string; province: string };
+  /** Text-align utilities for the column on desktop. */
   align: string;
+  /** Auto-margin utilities for the hairline so it lines up with the column's
+   *  text alignment. The previous version always pushed it right, which left
+   *  the Nhà Gái (right-column / left-aligned) hairline visually orphaned at
+   *  the wrong edge. */
+  hairlineAlign: string;
   delay: number;
 }
 
-function FamilyColumn({ label, father, mother, address, align, delay }: FamilyColumnProps) {
+function FamilyColumn({ label, father, mother, address, align, hairlineAlign, delay }: FamilyColumnProps) {
   return (
     <ScrollReveal delay={delay} className={`text-center ${align}`}>
       <p className="text-[0.7rem] md:text-xs font-medium tracking-[0.4em] uppercase text-[var(--color-ink-900)]">
         {label}
       </p>
-      <span className="block mx-auto md:mx-0 md:ml-auto md:mr-0 mt-5 h-px w-12 bg-[var(--color-ink-400)]/50" />
+      <span className={`block mx-auto mt-5 h-px w-12 bg-[var(--color-ink-400)]/50 ${hairlineAlign}`} />
 
       <div className="mt-8 space-y-3 font-light">
         <p className="leading-snug">

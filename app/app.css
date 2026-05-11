@@ -30,6 +30,13 @@
   --color-rose:  oklch(0.530 0.050 25);      /* primary accent (ampersand) */
   --color-rose-soft: oklch(0.720 0.035 30);
 
+  /* Vermilion (son đỏ) — the single saturated drop of color.
+     Used by VermilionSeal only. Traditional Vietnamese ceremonial-stamp red. */
+  --color-seal:  oklch(0.520 0.180 30);
+
+  /* Blush — quiet accent for the script marquee separator. */
+  --color-blush: oklch(0.760 0.060 28);
+
   /* Type families */
   --font-sans: "Be Vietnam Pro", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: "Prata", "Times New Roman", Georgia, serif;

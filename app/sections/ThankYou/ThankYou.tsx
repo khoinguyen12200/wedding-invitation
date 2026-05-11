@@ -31,8 +31,8 @@ export function ThankYou() {
 
       <ScrollReveal delay={0.3}>
         <p className="mt-10 max-w-md mx-auto font-light leading-[1.7] text-[var(--color-ink-700)] text-[1.0625rem] md:text-lg">
-          Cảm ơn vì bạn đã là một phần trong câu chuyện của chúng tôi.
-          Hẹn gặp bạn vào ngày trọng đại.
+          Trân trọng cảm ơn quý vị đã đồng hành cùng chúng tôi.
+          Mong sớm được gặp lại trong ngày trọng đại.
         </p>
       </ScrollReveal>
 
