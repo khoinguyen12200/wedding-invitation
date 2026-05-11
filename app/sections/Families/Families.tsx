@@ -56,13 +56,15 @@ export function Families() {
         </ScrollReveal>
 
         {/* Son-đỏ ceremonial card — the page's only saturated color, used
-            once. Traditional thiệp hồng 2:1 landscape proportion: 囍 stamp
-            anchors the left, names sit on the right, header tops the card.
-            Multi-stage choreographed entrance: borders draw on, corners
-            stagger in, header banner reveals, the 囍 stamps in with overshoot
-            as the climactic moment, ink haloes bloom outward last. */}
+            once. Traditional thiệp hồng 2:1 landscape: 囍 stamp anchors the
+            left, names sit on the right, header tops the card. Two vertical
+            couplets (永結同心 / 百年好合) flank the central content from the
+            outer margins, and a 回紋 (meander) fretwork band wraps above and
+            below. Multi-stage choreographed entrance with idle motion after
+            landing: the 囍 breathes and five plum-blossom petals drift
+            across the card. */}
         <div className="mt-16 md:mt-24 flex justify-center">
-          <div className="w-full max-w-[560px]">
+          <div className="w-full max-w-[640px]">
             <VermilionSeal
               groom="Gia Khôi"
               bride="Huyền Trân"
