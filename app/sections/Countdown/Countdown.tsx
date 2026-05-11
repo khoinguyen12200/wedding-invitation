@@ -28,7 +28,9 @@ interface CountdownProps {
 
 export function Countdown({ side }: CountdownProps) {
   const reduceMotion = useReducedMotion();
-  const [remaining, setRemaining] = useState<Remaining | null>(() => calc(side.ceremony.isoTarget));
+  const [remaining, setRemaining] = useState<Remaining | null>(() =>
+    calc(side.ceremony.isoTarget)
+  );
 
   useEffect(() => {
     const tick = () => setRemaining(calc(side.ceremony.isoTarget));
@@ -44,49 +46,55 @@ export function Countdown({ side }: CountdownProps) {
       aria-label="Đếm ngược"
     >
       <div className="max-w-4xl mx-auto text-center">
-        {/* Eyebrow */}
+        {/* ── WHAT ── */}
         <ScrollReveal>
-          <p className="text-[0.65rem] md:text-xs font-medium tracking-[0.5em] uppercase text-[var(--color-ink-500)]">
-            Còn lại đến
-          </p>
-        </ScrollReveal>
-
-        {/* Ceremony name in Pinyon Script — ties back to the hero's flying motif */}
-        <ScrollReveal delay={0.1}>
           <h2
-            className="font-script mt-6 md:mt-8 text-[var(--color-ink-900)] whitespace-nowrap"
-            style={{ fontSize: "clamp(4rem,12vw,9rem)", lineHeight: "1.0", paddingBlock: "0.04em" }}
+            className="font-luxury text-[var(--color-ink-900)]"
+            style={{
+              fontSize: "clamp(2.2rem, 4vw, 3.5rem)",
+              lineHeight: 1.15,
+              paddingBlock: "0.04em",
+            }}
           >
             {side.ceremony.label}
           </h2>
         </ScrollReveal>
 
-        {/* Date in italic Light, restrained */}
-        <ScrollReveal delay={0.2}>
-          <p className="font-italic-light mt-2 text-[var(--color-ink-500)] text-[1rem] md:text-lg">
+        {/* ── WHEN ── */}
+        <ScrollReveal delay={0.1}>
+          <p className="font-italic-light mt-3 text-[var(--color-ink-500)] text-[1rem] md:text-lg">
             {side.ceremony.solarFull}
           </p>
         </ScrollReveal>
 
-        {/* Decorative hairline */}
+        {/* ── Separator ── */}
         <motion.span
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.4, delay: 0.4, ease: easeExpoOut }}
+          transition={{ duration: 1.4, delay: 0.3, ease: easeExpoOut }}
           style={{ originX: 0.5 }}
-          className="block mx-auto mt-14 md:mt-20 h-px w-24 md:w-32 bg-[var(--color-ink-400)]/55"
+          className="block mx-auto mt-12 md:mt-16 h-px w-20 md:w-28 bg-[var(--color-ink-400)]/45"
         />
 
         {remaining ? (
           <div className="mt-14 md:mt-20">
-            {/* Hero days number, dramatic Prata serif */}
-            <ScrollReveal delay={0.3}>
-              <div className="relative inline-flex items-end justify-center gap-3 md:gap-5">
+            {/* ── Big days: Còn lại 82 ngày ── */}
+            <ScrollReveal delay={0.35}>
+              <div className="mt-4 md:mt-6 inline-flex items-baseline justify-center gap-3 md:gap-4">
                 <span
-                  className="font-luxury tabular-nums text-[var(--color-ink-900)] leading-[0.9]"
+                  className="font-script text-[var(--color-ink-500)]"
                   style={{
-                    fontSize: "clamp(8rem,28vw,22rem)",
+                    fontSize: "clamp(1.6rem, 4vw, 2.8rem)",
+                    lineHeight: 1.0,
+                  }}
+                >
+                  Còn lại
+                </span>
+                <span
+                  className="font-luxury tabular-nums text-[var(--color-ink-900)] leading-[0.85]"
+                  style={{
+                    fontSize: "clamp(6rem, 18vw, 13rem)",
                     paddingBlock: "0.02em",
                   }}
                   aria-label={`${remaining.days} ngày`}
@@ -94,18 +102,20 @@ export function Countdown({ side }: CountdownProps) {
                   {remaining.days}
                 </span>
                 <span
-                  className="font-script text-[var(--color-rose)] mb-2 md:mb-6"
-                  style={{ fontSize: "clamp(2rem,6vw,5rem)", lineHeight: "1.0" }}
+                  className="font-script text-[var(--color-rose)]"
+                  style={{
+                    fontSize: "clamp(1.6rem, 4vw, 2.8rem)",
+                    lineHeight: 1.0,
+                  }}
                 >
                   ngày
                 </span>
               </div>
             </ScrollReveal>
 
-            {/* Supporting line, in italic — quiet rhythm */}
+            {/* ── Hours · Minutes · Seconds ── */}
             <ScrollReveal delay={0.5}>
-              <p className="font-italic-light mt-10 md:mt-14 inline-flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 text-[var(--color-ink-700)] text-[1.0625rem] md:text-xl">
-                <span className="text-[var(--color-ink-500)]">và</span>
+              <p className="mt-8 md:mt-10 inline-flex flex-wrap items-baseline justify-center gap-x-5 gap-y-2 text-[var(--color-ink-700)] text-[1.0625rem] md:text-xl">
                 <SupportingNumber value={remaining.hours} unit="giờ" />
                 <Glyph />
                 <SupportingNumber value={remaining.minutes} unit="phút" />
@@ -130,12 +140,22 @@ export function Countdown({ side }: CountdownProps) {
   );
 }
 
-function SupportingNumber({ value, unit }: { value: number; unit: string }) {
+function SupportingNumber({
+  value,
+  unit,
+}: {
+  value: number;
+  unit: string;
+}) {
   return (
     <span className="inline-flex items-baseline gap-1.5">
       <span
         className="font-luxury tabular-nums tracking-tight text-[var(--color-ink-900)]"
-        style={{ fontStyle: "normal", fontSize: "1.15em", paddingBlock: "0.04em" }}
+        style={{
+          fontStyle: "normal",
+          fontSize: "1.15em",
+          paddingBlock: "0.04em",
+        }}
       >
         {String(value).padStart(2, "0")}
       </span>
@@ -147,5 +167,7 @@ function SupportingNumber({ value, unit }: { value: number; unit: string }) {
 }
 
 function Glyph() {
-  return <span className="text-[var(--color-ink-400)] text-base md:text-lg">✦</span>;
+  return (
+    <span className="text-[var(--color-ink-400)] text-base md:text-lg">✦</span>
+  );
 }
