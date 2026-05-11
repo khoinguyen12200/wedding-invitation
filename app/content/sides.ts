@@ -19,6 +19,7 @@ export const sides = {
     ceremony: ceremonies.damCuoi,
     hostFamilyLabel: "Tư gia nhà trai",
     time: "TBD",
+    mapsUrl: "https://maps.app.goo.gl/Rv9jAc1wfAm2vxAM6",
   },
   bride: {
     key: "bride" as const,
@@ -36,6 +37,7 @@ export const sides = {
     ceremony: ceremonies.damNoi,
     hostFamilyLabel: "Tư gia nhà gái",
     time: "TBD",
+    mapsUrl: "https://maps.app.goo.gl/8vBwQXkWc5YKvN877",
   },
 } as const;
 

@@ -11,7 +11,7 @@ interface EventsProps {
 
 export function Events({ side }: EventsProps) {
   const fullAddress = `${side.address.street}, ${side.address.ward}, ${side.address.province}`;
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+  const mapsUrl = side.mapsUrl;
 
   /* Calendar event derived from the side's ceremony. The UID is
      deterministic per (ceremony × side) so re-adding doesn't create
