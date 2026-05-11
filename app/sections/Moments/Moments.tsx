@@ -24,19 +24,19 @@ interface LifestylePhoto {
 const PHOTOS = {
   dalatMountain: {
     src: "/photo_2026-05-11_14-42-01.jpg",
-    alt: "Hai chúng tôi đứng nhìn ra biển mây ở Đà Lạt, áo len mùa đông.",
+    alt: "Hai chúng con đứng nhìn ra biển mây ở Đà Lạt, áo len mùa đông.",
     focal: "50% 35%",
     tilt: -1.2,
   },
   dalatHood: {
     src: "/photo_2026-05-11_14-42-08.jpg",
-    alt: "Selfie cận cảnh hai chúng tôi trong áo khoác mùa lạnh.",
+    alt: "Selfie cận cảnh hai chúng con trong áo khoác mùa lạnh.",
     focal: "55% 40%",
     tilt: 1.6,
   },
   dalatGrass: {
     src: "/photo_2026-05-11_14-42-12.jpg",
-    alt: "Hai chúng tôi ngồi trên cỏ nhìn ra dãy núi Đà Lạt.",
+    alt: "Hai chúng con ngồi trên cỏ nhìn ra dãy núi Đà Lạt.",
     focal: "50% 50%",
     tilt: -2.1,
   },
@@ -54,7 +54,7 @@ const PHOTOS = {
   },
   homeGaming: {
     src: "/photo_2026-05-11_10-22-27.jpg",
-    alt: "Hai chúng tôi cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
+    alt: "Hai chúng con cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
     focal: "55% 40%",
     tilt: 2.4,
   },
@@ -128,7 +128,7 @@ function Header() {
     <header className="max-w-3xl mx-auto text-center">
       <ScrollReveal>
         <p className="text-[0.65rem] md:text-xs font-medium tracking-[0.5em] uppercase text-[var(--color-ink-500)]">
-          Khoảnh khắc · Của chúng tôi
+          Khoảnh khắc · Của chúng con
         </p>
       </ScrollReveal>
 
@@ -151,7 +151,7 @@ function Header() {
           className="mt-7 mx-auto max-w-[38ch] text-[var(--color-ink-700)] font-light text-[1.0625rem] md:text-[1.125rem]"
           style={{ lineHeight: 1.65 }}
         >
-          Hành trình của chúng tôi,
+          Hành trình của chúng con,
           <br />
           từ những ngày thường đến ngày trọng đại.
         </p>

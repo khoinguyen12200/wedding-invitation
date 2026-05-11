@@ -51,7 +51,7 @@ export function Families() {
         <ScrollReveal delay={0.3}>
           <p className="mt-24 md:mt-32 text-center font-light text-[var(--color-ink-700)] max-w-xl mx-auto leading-[1.7] text-[1.0625rem] md:text-[1.125rem]">
             Trân trọng kính mời quý quan khách đến chung vui cùng gia đình
-            chúng tôi trong ngày lễ thành hôn của hai con:
+            chúng con trong ngày lễ thành hôn:
           </p>
         </ScrollReveal>
 

@@ -19,7 +19,7 @@ export function Events({ side }: EventsProps) {
   const venue = `${side.hostFamilyLabel}, ${fullAddress}`;
   const description =
     `Trân trọng kính mời quý quan khách đến chung vui ngày ${side.ceremony.label} ` +
-    `của ${couple.groom.full} & ${couple.bride.full}.\n\n` +
+    `của chúng con.\n\n` +
     `https://gk-ht.web.app`;
   const calendarEvent = {
     title: `${side.ceremony.label} · ${couple.groom.full} & ${couple.bride.full}`,
