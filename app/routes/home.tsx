@@ -35,9 +35,10 @@ export default function Home() {
         <Hero side={side} />
         <Countdown side={side} />
         <Moments />
-        {/* Slate-mark divider — punctuates the cinema's exit before the
-            Families block lands on paper. Script Prata at hero scale, scrolls
-            on the dark surface left over from the cinema. */}
+        {/* Slate-mark divider — punctuates the album's exit before the
+            Families block lands on paper. Script Prata at hero scale on
+            ink-900 gives the page a breath of contrast between the two
+            cream sections. */}
         <Marquee text="Gia Khôi  &  Huyền Trân" separator="✦" durationSec={42} script />
         <Families />
         <Events side={side} />

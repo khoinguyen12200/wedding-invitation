@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { ScrollReveal, MaskReveal } from "../../components/ScrollReveal";
+import { couple } from "../../content/couple";
 import type { Side } from "../../content/sides";
+import { buildGoogleCalendarUrl, downloadIcs } from "../../lib/calendar";
 import { easeExpoOut } from "../../lib/motion";
 
 interface EventsProps {
@@ -10,6 +12,27 @@ interface EventsProps {
 export function Events({ side }: EventsProps) {
   const fullAddress = `${side.address.street}, ${side.address.ward}, ${side.address.province}`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+
+  /* Calendar event derived from the side's ceremony. The UID is
+     deterministic per (ceremony × side) so re-adding doesn't create
+     duplicates — the calendar app updates the existing event. */
+  const venue = `${side.hostFamilyLabel}, ${fullAddress}`;
+  const description =
+    `Trân trọng kính mời quý quan khách đến chung vui ngày ${side.ceremony.label} ` +
+    `của ${couple.groom.full} & ${couple.bride.full}.\n\n` +
+    `https://gk-ht.web.app`;
+  const calendarEvent = {
+    title: `${side.ceremony.label} · ${couple.groom.full} & ${couple.bride.full}`,
+    ymd: side.ceremony.solar,
+    time: side.time,
+    location: venue,
+    description,
+    uid: `${side.ceremony.label.replace(/\s+/g, "-")}-${side.key}-2026@gk-ht.web.app`,
+  };
+  const gcalUrl = buildGoogleCalendarUrl(calendarEvent);
+  const onAddToCalendar = () => {
+    downloadIcs(calendarEvent, `${side.ceremony.label.replace(/\s+/g, "-")}.ics`);
+  };
 
   return (
     <section
@@ -100,22 +123,59 @@ export function Events({ side }: EventsProps) {
         </div>
 
         <ScrollReveal delay={0.75}>
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-16 md:mt-20 inline-flex items-baseline gap-3 text-xs md:text-sm font-medium tracking-[0.32em] uppercase text-[var(--color-ink-900)] border-b border-[var(--color-ink-400)]/50 hover:border-[var(--color-ink-900)] pb-2 transition-colors"
-          >
-            <span>Chỉ đường</span>
-            <motion.span
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: easeExpoOut }}
-              className="inline-block"
-              aria-hidden="true"
+          <div className="mt-16 md:mt-20 flex flex-col items-start gap-5">
+            <div className="flex flex-wrap items-baseline gap-x-10 gap-y-5">
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-baseline gap-3 text-xs md:text-sm font-medium tracking-[0.32em] uppercase text-[var(--color-ink-900)] border-b border-[var(--color-ink-400)]/50 hover:border-[var(--color-ink-900)] pb-2 transition-colors"
+              >
+                <span>Chỉ đường</span>
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: easeExpoOut }}
+                  className="inline-block"
+                  aria-hidden="true"
+                >
+                  →
+                </motion.span>
+              </a>
+
+              {/* Add-to-calendar action — generates a .ics file and
+                  triggers a download. iOS opens Apple Calendar; Android
+                  prompts to pick a calendar app. Two alarms baked in
+                  (1 day before, 2 hours before). */}
+              <button
+                type="button"
+                onClick={onAddToCalendar}
+                className="group inline-flex items-baseline gap-3 text-xs md:text-sm font-medium tracking-[0.32em] uppercase text-[var(--color-ink-900)] border-b border-[var(--color-ink-400)]/50 hover:border-[var(--color-ink-900)] pb-2 transition-colors"
+              >
+                <span>Thêm vào lịch</span>
+                <motion.span
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: easeExpoOut }}
+                  className="inline-block"
+                  aria-hidden="true"
+                >
+                  ↓
+                </motion.span>
+              </button>
+            </div>
+
+            {/* Tertiary fallback for Android Chrome where the .ics
+                download sometimes silently lands in /Downloads. The
+                Google Calendar deep link opens a pre-filled compose
+                form in the GCal app or web. */}
+            <a
+              href={gcalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.7rem] md:text-xs font-light tracking-[0.24em] uppercase text-[var(--color-ink-500)] hover:text-[var(--color-ink-900)] transition-colors"
             >
-              →
-            </motion.span>
-          </a>
+              Hoặc mở bằng Google Lịch <span aria-hidden>↗</span>
+            </a>
+          </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.9}>
