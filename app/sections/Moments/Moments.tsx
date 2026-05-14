@@ -175,7 +175,7 @@ function LeafBeginning({ reduceMotion }: { reduceMotion: boolean | null }) {
 
       <div className="md:col-span-7 md:order-2 order-1">
         <PhotoMat
-          photo={PHOTOS.homeGaming}
+          photo={PHOTOS.homeCuddly}
           aspectClass="aspect-[4/5]"
           stamp={{ text1: "KHỞI ĐẦU", text2: "MMXXIII", corner: "br", tilt: -5 }}
           delay={0.2}
@@ -254,7 +254,7 @@ function LeafEngagement({ reduceMotion }: { reduceMotion: boolean | null }) {
     <article className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
       <div className="md:col-span-6 md:order-1">
         <PhotoMat
-          photo={PHOTOS.homeCuddly}
+          photo={PHOTOS.homeGaming}
           aspectClass="aspect-square"
           stamp={{ text1: "ĐỒNG Ý", text2: "MMXXV", corner: "tl", tilt: 6 }}
           delay={0.2}
