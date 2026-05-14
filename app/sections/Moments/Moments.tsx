@@ -23,25 +23,25 @@ interface LifestylePhoto {
 const PHOTOS = {
   homeGaming: {
     src: "/photo_2026-05-11_10-22-27.jpg",
-    alt: "Hai chúng con cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
+    alt: "Hai chúng mình cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
     focal: "55% 40%",
     tilt: 2.4,
   },
   dalatMountain: {
     src: "/photo_2026-05-11_14-42-01.jpg",
-    alt: "Hai chúng con đứng nhìn ra biển mây ở Đà Lạt, áo len mùa đông.",
+    alt: "Hai chúng mình đứng nhìn ra biển mây ở Đà Lạt, áo len mùa đông.",
     focal: "50% 35%",
     tilt: -1.2,
   },
   dalatHood: {
     src: "/photo_2026-05-11_14-42-08.jpg",
-    alt: "Selfie cận cảnh hai chúng con trong áo khoác mùa lạnh.",
+    alt: "Selfie cận cảnh hai chúng mình trong áo khoác mùa lạnh.",
     focal: "55% 40%",
     tilt: 1.6,
   },
   dalatGrass: {
     src: "/photo_2026-05-11_14-42-12.jpg",
-    alt: "Hai chúng con ngồi trên cỏ nhìn ra dãy núi Đà Lạt.",
+    alt: "Hai chúng mình ngồi trên cỏ nhìn ra dãy núi Đà Lạt.",
     focal: "50% 50%",
     tilt: -2.1,
   },
@@ -71,7 +71,7 @@ const PHOTOS = {
   },
   studio0327: {
     src: "/photos/ld3_0327-1280.jpg",
-    alt: "Ảnh studio: hai chúng con nhìn nhau, em cầm bó hoa cưới.",
+    alt: "Ảnh studio: hai chúng mình nhìn nhau, em cầm bó hoa cưới.",
     focal: "50% 40%",
     tilt: 1.8,
   },
@@ -123,7 +123,7 @@ function Header() {
     <header className="max-w-3xl mx-auto text-center">
       <ScrollReveal>
         <p className="text-[0.65rem] md:text-xs font-medium tracking-[0.5em] uppercase text-[var(--color-ink-500)]">
-          Khoảnh khắc · Của chúng con
+          Khoảnh khắc · Của chúng mình
         </p>
       </ScrollReveal>
 
@@ -167,7 +167,7 @@ function LeafBeginning({ reduceMotion }: { reduceMotion: boolean | null }) {
         <LeafCaption
           label="Khởi đầu"
           date="02 · 01 · 2023"
-          caption="Khởi đầu một năm mới, cũng là khởi đầu của hành trình chúng con."
+          caption="Khởi đầu một năm mới, cũng là khởi đầu của hành trình chúng mình."
           leaf={1}
           align="left"
         />
@@ -197,7 +197,7 @@ function LeafDaLat({ reduceMotion }: { reduceMotion: boolean | null }) {
     <article className="flex flex-col items-center">
       <LeafCaption
         date="Đà Lạt"
-        caption="Chuyến du lịch cùng nhau đầu tiên, và là nơi chúng con yêu thích nhất."
+        caption="Chuyến du lịch cùng nhau đầu tiên, và là nơi chúng mình yêu thích nhất."
         leaf={2}
         align="center"
       />
@@ -266,7 +266,7 @@ function LeafEngagement({ reduceMotion }: { reduceMotion: boolean | null }) {
         <LeafCaption
           label="Em đồng ý"
           date="17 · 04 · 2025"
-          caption="Câu “em đồng ý” được nói ra. Hành trình chúng con chính thức rẽ sang một trang mới."
+          caption="Câu “em đồng ý” được nói ra. Hành trình chúng mình chính thức rẽ sang một trang mới."
           leaf={3}
           align="left"
         />
@@ -289,7 +289,7 @@ function LeafNow({ reduceMotion }: { reduceMotion: boolean | null }) {
       <LeafCaption
         label="Bây giờ"
         date="02 · 08 · 2026"
-        caption="Trải qua nhiều thăng trầm, giờ đây, chúng con đã sắp được về chung một nhà."
+        caption="Trải qua nhiều thăng trầm, giờ đây, chúng mình đã sắp được về chung một nhà."
         leaf={4}
         align="center"
       />
