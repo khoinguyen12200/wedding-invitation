@@ -13,15 +13,20 @@ interface LifestylePhoto {
   tilt: number;
 }
 
-/* Seven candid photos arranged into a chronological journey across
-   five album "leaves" — from the first milestone (graduation, MMXXIII)
-   to the destination (the wedding day, II · VIII · MMXXVI). The final
-   leaf carries no photo: it's pure typography, the climax of the arc.
-
-   The photos live at /public/photo_*.jpg as single-resolution Telegram
-   exports. PHOTO OPTIMIZATION TODO: generate 640/1280 variants and
-   AVIF/WebP for mobile-LCP on Zalo. Out of scope here. */
+/* Album photos. Mapped to the four stories in docs/new-story.md:
+     homeGaming → L1 (Khởi đầu, 02·01·2023)
+     dalatMountain + dalatHood + dalatGrass → L2 (Đà Lạt)
+     homeCuddly → L3 (Em đồng ý, 17·04·2025)
+     studio0266 + studio0327 → L4 (Bây giờ, wedding attire)
+   PHOTO OPTIMIZATION TODO: generate 640/1280 variants + AVIF/WebP for the
+   Telegram exports too. Out of scope here. */
 const PHOTOS = {
+  homeGaming: {
+    src: "/photo_2026-05-11_10-22-27.jpg",
+    alt: "Hai chúng con cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
+    focal: "55% 40%",
+    tilt: 2.4,
+  },
   dalatMountain: {
     src: "/photo_2026-05-11_14-42-01.jpg",
     alt: "Hai chúng con đứng nhìn ra biển mây ở Đà Lạt, áo len mùa đông.",
@@ -40,58 +45,39 @@ const PHOTOS = {
     focal: "50% 50%",
     tilt: -2.1,
   },
-  herGrad: {
-    src: "/photo_2026-05-11_14-42-42.jpg",
-    alt: "Em mặc áo cử nhân đen đỏ trong ngày tốt nghiệp.",
-    focal: "50% 32%",
-    tilt: 1.4,
-  },
-  hisGrad: {
-    src: "/photo_2026-05-11_14-42-46.jpg",
-    alt: "Anh trong áo cử nhân ôm bó hoa trước giảng đường.",
-    focal: "50% 40%",
-    tilt: -1.8,
-  },
-  homeGaming: {
-    src: "/photo_2026-05-11_10-22-27.jpg",
-    alt: "Hai chúng con cùng nhau trong góc phòng buổi tối, ánh đèn ấm.",
-    focal: "55% 40%",
-    tilt: 2.4,
-  },
   homeCuddly: {
     src: "/photo_2026-05-11_10-22-26.jpg",
     alt: "Selfie cận cảnh, em tựa má vào tay, anh ôm vai cười.",
     focal: "50% 40%",
     tilt: -2.6,
   },
+  studio0266: {
+    src: "/photos/ld3_0266-1280.jpg",
+    alt: "Ảnh studio: anh trong vest đen, em trong áo cưới trắng, cùng nhìn xuống bó hoa.",
+    focal: "50% 40%",
+    tilt: -1.4,
+  },
+  studio0327: {
+    src: "/photos/ld3_0327-1280.jpg",
+    alt: "Ảnh studio: hai chúng con nhìn nhau, em cầm bó hoa cưới.",
+    focal: "50% 40%",
+    tilt: 1.8,
+  },
 } satisfies Record<string, LifestylePhoto>;
 
-/* Album · Năm bên nhau — a personal photo album in the same ceremonial
-   vocabulary as the rest of the site:
-     - Cream paper surface (--color-paper-100)
-     - Prata display ("font-luxury") for headings and dates
-     - Pinyon Script ("font-script") for the romantic & flourish
-     - Vermilion seal stamps as "passport-stamp" page tags
-     - Be Vietnam Pro Light for captions
-     - Fretwork hairlines (回紋 motif from the vermilion seal) between
-       leaves so the album reads as deliberately bound
+/* Album · Năm bên nhau — four leaves, one per story in
+   docs/new-story.md. Slot rules: only display labels/dates that exist
+   in the source (or directly map to a date already present elsewhere
+   on the page). No invented seasons or place epithets.
+     L1 — Khởi đầu / 02·01·2023: source has the date + "khởi đầu".
+     L2 — Đà Lạt: source names only the place; no date displayed.
+     L3 — Em đồng ý / 17·04·2025: source has the date + the quote.
+     L4 — Bây giờ / 02·08·2026: source has no date, but "sắp về chung
+          một nhà" points at the wedding day, which is the natural Prata
+          anchor. Studio portraits + Pinyon & are the cinematic close.
 
-   Five leaves, chronologically ordered as a journey from ordinary
-   days to the wedding day:
-     L1 — Tốt nghiệp (offset pair, MMXXIII): the milestone, two paths
-          becoming one.
-     L2 — Đường lên Đà Lạt (solo hero, I · MMXXV): the first big trip
-          together — adventure.
-     L3 — Mùa lạnh (centered pair, I · MMXXV): closer, intimate
-          travel moments with a Pinyon Script & floating between.
-     L4 — Đêm muộn (overlap pair, IV · MMXXVI): settled life on the
-          eve of the wedding.
-     L5 — Bây giờ (typographic finale, II · VIII · MMXXVI): the
-          destination. No photo — the wedding date itself is the page.
-
-   Each LeafCaption's leaf number drives the "Trang 0N / 05" footer so
-   the reader sees their position in the journey. Reduced motion drops
-   to a static stacked layout — same content, no transforms, no tilts. */
+   Reduced motion drops to a static stacked layout — same content, no
+   transforms, no tilts. */
 export function Moments() {
   const reduceMotion = useReducedMotion();
 
@@ -104,15 +90,13 @@ export function Moments() {
       <Header />
 
       <div className="mt-20 md:mt-28 max-w-5xl mx-auto space-y-28 md:space-y-44">
-        <LeafGraduation reduceMotion={reduceMotion} />
-        <FretworkRule />
-        <LeafMountain reduceMotion={reduceMotion} />
+        <LeafBeginning reduceMotion={reduceMotion} />
         <FretworkRule />
         <LeafDaLat reduceMotion={reduceMotion} />
         <FretworkRule />
-        <LeafHome reduceMotion={reduceMotion} />
+        <LeafEngagement reduceMotion={reduceMotion} />
         <FretworkRule />
-        <LeafWedding />
+        <LeafNow reduceMotion={reduceMotion} />
       </div>
     </section>
   );
@@ -120,8 +104,7 @@ export function Moments() {
 
 /* ────────────────────────────────────────────────────────────────────
    HEADER — small caps eyebrow above a Prata display line, with a
-   short serif subtitle in Be Vietnam Pro Light. Matches the section-
-   opening pattern used by Families and Countdown.
+   short serif subtitle in Be Vietnam Pro Light.
    ──────────────────────────────────────────────────────────────────── */
 function Header() {
   return (
@@ -161,28 +144,28 @@ function Header() {
 }
 
 /* ────────────────────────────────────────────────────────────────────
-   LEAF 2 — Solo hero. Đà Lạt mountain view. The first big trip
-   together — caption sits on the left, photo dominates the right,
-   vermilion stamp pinned to the photo's corner.
+   LEAF 1 — Khởi đầu. The album opens quietly: one warm-lit photo of
+   the two of them, caption to the left. No Pinyon ornament yet — the
+   voice will warm up as the journey moves on.
    ──────────────────────────────────────────────────────────────────── */
-function LeafMountain({ reduceMotion }: { reduceMotion: boolean | null }) {
+function LeafBeginning({ reduceMotion }: { reduceMotion: boolean | null }) {
   return (
     <article className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
       <div className="md:col-span-5 md:order-1 order-2">
         <LeafCaption
-          label="Đường lên Đà Lạt"
-          date="Ngày đông · Đà Lạt"
-          caption="Sáng đó dậy sớm để kịp biển mây. Lạnh buốt, mây thì bày ra ngay dưới chân."
-          leaf={2}
+          label="Khởi đầu"
+          date="02 · 01 · 2023"
+          caption="Khởi đầu một năm mới, cũng là khởi đầu của hành trình chúng con."
+          leaf={1}
           align="left"
         />
       </div>
 
       <div className="md:col-span-7 md:order-2 order-1">
         <PhotoMat
-          photo={PHOTOS.dalatMountain}
+          photo={PHOTOS.homeGaming}
           aspectClass="aspect-[4/5]"
-          stamp={{ text1: "ĐÀ LẠT", text2: "PHỐ NÚI", corner: "br", tilt: -8 }}
+          stamp={{ text1: "KHỞI ĐẦU", text2: "MMXXIII", corner: "br", tilt: -5 }}
           delay={0.2}
           reduceMotion={reduceMotion}
         />
@@ -192,47 +175,55 @@ function LeafMountain({ reduceMotion }: { reduceMotion: boolean | null }) {
 }
 
 /* ────────────────────────────────────────────────────────────────────
-   LEAF 3 — Centered pair. Closer Đà Lạt moments with a Pinyon Script
-   & floating between them. Caption sits above the pair, centered —
-   the most romantic leaf in the album.
+   LEAF 2 — Đà Lạt. The richest visual leaf: a mountain hero photo on
+   top, two smaller frames below joined by a Pinyon Script &. This is
+   the "first trip + favorite place" double-meaning, given the most
+   space because the couple weighs Đà Lạt heavily in their own story.
    ──────────────────────────────────────────────────────────────────── */
 function LeafDaLat({ reduceMotion }: { reduceMotion: boolean | null }) {
   return (
     <article className="flex flex-col items-center">
       <LeafCaption
-        label="Mùa lạnh"
-          date="Hoàng hôn · Phố núi"
-          caption="Chiều xuống chậm, hai đứa cũng chậm theo. Ngồi nán trên cỏ một chút nữa, không nói gì cũng được."
-        leaf={3}
+        date="Đà Lạt"
+        caption="Chuyến du lịch cùng nhau đầu tiên, và là nơi chúng con yêu thích nhất."
+        leaf={2}
         align="center"
       />
 
-      <div className="mt-16 md:mt-20 relative w-full grid grid-cols-2 gap-4 md:gap-12 items-center">
-        <div className="justify-self-end w-full max-w-[280px] md:max-w-[360px]">
+      {/* Mountain hero photo */}
+      <div className="mt-14 md:mt-20 w-full max-w-[460px]">
+        <PhotoMat
+          photo={PHOTOS.dalatMountain}
+          aspectClass="aspect-[4/5]"
+          delay={0.2}
+          reduceMotion={reduceMotion}
+        />
+      </div>
+
+      {/* Lower pair with Pinyon & between */}
+      <div className="mt-10 md:mt-12 relative w-full grid grid-cols-2 gap-4 md:gap-12 items-center max-w-[640px]">
+        <div className="justify-self-end w-full max-w-[260px] md:max-w-[300px]">
           <PhotoMat
             photo={PHOTOS.dalatHood}
-            aspectClass="aspect-[3/4]"
-            stamp={{ text1: "MÙA ĐÔNG", text2: "ÁO LEN", corner: "tl", tilt: 6 }}
-            delay={0.2}
-            reduceMotion={reduceMotion}
-          />
-        </div>
-
-        <div className="w-full max-w-[280px] md:max-w-[360px]">
-          <PhotoMat
-            photo={PHOTOS.dalatGrass}
             aspectClass="aspect-square"
             delay={0.35}
             reduceMotion={reduceMotion}
           />
         </div>
 
-        {/* Pinyon Script & — sits between the two photo mats. Pointer
-            events disabled so it doesn't intercept hover/clicks on the
-            photos behind it. */}
+        <div className="w-full max-w-[260px] md:max-w-[300px]">
+          <PhotoMat
+            photo={PHOTOS.dalatGrass}
+            aspectClass="aspect-square"
+            delay={0.5}
+            reduceMotion={reduceMotion}
+          />
+        </div>
+
         <Ampersand
+          size="sm"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          delay={0.5}
+          delay={0.6}
           reduceMotion={reduceMotion}
         />
       </div>
@@ -241,111 +232,81 @@ function LeafDaLat({ reduceMotion }: { reduceMotion: boolean | null }) {
 }
 
 /* ────────────────────────────────────────────────────────────────────
-   LEAF 1 — Offset pair. The journey opens here: two graduation days
-   staggered vertically, "two paths becoming one." The first leaf
-   gets the simplest layout — no Pinyon Script on the caption yet, no
-   ornament saturation; the album's voice will warm up as the journey
-   progresses.
+   LEAF 3 — Em đồng ý. The proposal moment. Photo on the left, caption
+   on the right with the specific date highlighted. The journey turns
+   here, so the leaf gets a quieter, more direct treatment — no
+   Pinyon ornament, no stamp clutter; the date itself is the weight.
    ──────────────────────────────────────────────────────────────────── */
-function LeafGraduation({ reduceMotion }: { reduceMotion: boolean | null }) {
+function LeafEngagement({ reduceMotion }: { reduceMotion: boolean | null }) {
   return (
     <article className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-      <div className="md:col-span-7 grid grid-cols-2 gap-4 md:gap-8 relative">
-        <div className="md:mt-8">
+      <div className="md:col-span-6 md:order-1">
+        <PhotoMat
+          photo={PHOTOS.homeCuddly}
+          aspectClass="aspect-square"
+          stamp={{ text1: "ĐỒNG Ý", text2: "MMXXV", corner: "tl", tilt: 6 }}
+          delay={0.2}
+          reduceMotion={reduceMotion}
+        />
+      </div>
+
+      <div className="md:col-span-6 md:order-2">
+        <LeafCaption
+          label="Em đồng ý"
+          date="17 · 04 · 2025"
+          caption="Câu “em đồng ý” được nói ra. Hành trình chúng con chính thức rẽ sang một trang mới."
+          leaf={3}
+          align="left"
+        />
+      </div>
+    </article>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   LEAF 4 — Bây giờ. The cinematic close, in wedding attire. Two
+   studio frames bound by a hero-scale Pinyon Script &. This leaf
+   replaces the prior typographic-only finale: the studio portraits
+   themselves carry the ceremonial weight, and the album ends on
+   "sắp được về chung một nhà" rather than a date callout (the date
+   already lives in the hero, countdown, and events sections).
+   ──────────────────────────────────────────────────────────────────── */
+function LeafNow({ reduceMotion }: { reduceMotion: boolean | null }) {
+  return (
+    <article className="flex flex-col items-center">
+      <LeafCaption
+        label="Bây giờ"
+        date="02 · 08 · 2026"
+        caption="Trải qua nhiều thăng trầm, giờ đây, chúng con đã sắp được về chung một nhà."
+        leaf={4}
+        align="center"
+      />
+
+      <div className="mt-14 md:mt-20 relative w-full grid grid-cols-2 gap-4 md:gap-14 items-center max-w-[720px]">
+        <div className="justify-self-end w-full max-w-[300px] md:max-w-[340px]">
           <PhotoMat
-            photo={PHOTOS.herGrad}
+            photo={PHOTOS.studio0266}
             aspectClass="aspect-[3/4]"
+            stamp={{ text1: "02 · 08", text2: "MMXXVI", corner: "br", tilt: -6 }}
             delay={0.2}
             reduceMotion={reduceMotion}
           />
         </div>
 
-        <div className="md:-mt-8">
+        <div className="w-full max-w-[300px] md:max-w-[340px]">
           <PhotoMat
-            photo={PHOTOS.hisGrad}
+            photo={PHOTOS.studio0327}
             aspectClass="aspect-[3/4]"
-            stamp={{ text1: "TỐT NGHIỆP", text2: "NGÀY VUI", corner: "br", tilt: -5 }}
             delay={0.35}
             reduceMotion={reduceMotion}
           />
         </div>
 
-        {/* Small & between the two grad photos, top-aligned to the gap. */}
         <Ampersand
-          size="sm"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          delay={0.5}
+          delay={0.55}
           reduceMotion={reduceMotion}
         />
-      </div>
-
-      <div className="md:col-span-5">
-        <LeafCaption
-          label="Tốt nghiệp"
-          date="Mùa hè · Cần Thơ"
-          caption="Hai ngày tốt nghiệp khác nhau, hai bức ảnh chụp riêng. Không ai đoán được sẽ tới đây."
-          leaf={1}
-          align="left"
-        />
-      </div>
-    </article>
-  );
-}
-
-/* ────────────────────────────────────────────────────────────────────
-   LEAF 4 — Overlap pair. The reflection beat. The previous leaves
-   describe specific moments; this one steps back and summarizes the
-   journey before handing off to the typographic finale. The two
-   photos still play (overlap pair, larger + nested smaller), but the
-   caption no longer narrates them — it's a "where we are now" line
-   pointing at the wedding date.
-   ──────────────────────────────────────────────────────────────────── */
-function LeafHome({ reduceMotion }: { reduceMotion: boolean | null }) {
-  return (
-    <article className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-      <div className="md:col-span-5 md:order-1 order-2">
-        <LeafCaption
-          label="Tới hôm nay"
-          date="Mùa hè · 2026"
-          caption="Chừng đó năm, chừng đó chuyến đi, chừng đó câu chuyện. Đủ để biết ngày 02·08 sẽ là của chúng con."
-          leaf={4}
-          align="left"
-        />
-      </div>
-
-      <div className="md:col-span-7 md:order-2 order-1 relative">
-        {/* Main photo */}
-        <div className="ml-auto w-full max-w-[420px]">
-          <PhotoMat
-            photo={PHOTOS.homeCuddly}
-            aspectClass="aspect-[4/5]"
-            stamp={{ text1: "MÙA HÈ", text2: "MMXXVI", corner: "tr", tilt: 5 }}
-            delay={0.2}
-            reduceMotion={reduceMotion}
-          />
-        </div>
-
-        {/* Secondary photo, nested into the lower-left corner of the
-            main mat, slightly overlapping. On mobile it tucks below
-            rather than overlap so the layout doesn't get cramped. */}
-        <div className="hidden md:block absolute left-0 bottom-[-6%] w-[44%] max-w-[260px]">
-          <PhotoMat
-            photo={PHOTOS.homeGaming}
-            aspectClass="aspect-[3/4]"
-            delay={0.5}
-            reduceMotion={reduceMotion}
-          />
-        </div>
-
-        {/* Mobile-only: stack the second photo below */}
-        <div className="md:hidden mt-6 mr-auto w-[60%]">
-          <PhotoMat
-            photo={PHOTOS.homeGaming}
-            aspectClass="aspect-[3/4]"
-            delay={0.5}
-            reduceMotion={reduceMotion}
-          />
-        </div>
       </div>
     </article>
   );
@@ -400,8 +361,6 @@ function PhotoMat({ photo, aspectClass, stamp, delay = 0, reduceMotion }: PhotoM
             loading="lazy"
             decoding="async"
           />
-          {/* Subtle vignette so the mat edge feels like a real photo
-              print, not a flat web crop. */}
           <span
             aria-hidden
             className="absolute inset-0 pointer-events-none"
@@ -428,7 +387,6 @@ interface SealStampProps {
   text1: string;
   text2: string;
   corner: "tl" | "tr" | "bl" | "br";
-  /** Rotation in degrees. */
   tilt: number;
 }
 
@@ -476,7 +434,9 @@ function SealStamp({ text1, text2, corner, tilt }: SealStampProps) {
    center per leaf so the rhythm varies across the album.
    ──────────────────────────────────────────────────────────────────── */
 interface LeafCaptionProps {
-  label: string;
+  /** Eyebrow text above the rule. Omit when the source story has no
+   *  label for this beat (e.g. L2's "Đà Lạt" sits in the date slot). */
+  label?: string;
   date: string;
   caption: string;
   leaf: number;
@@ -489,15 +449,17 @@ function LeafCaption({ label, date, caption, leaf, align }: LeafCaptionProps) {
 
   return (
     <div className={`flex flex-col ${alignClass}`}>
-      <ScrollReveal>
-        <p className="text-[0.7rem] md:text-xs font-medium tracking-[0.45em] uppercase text-[var(--color-ink-500)]">
-          {label}
-        </p>
-      </ScrollReveal>
+      {label ? (
+        <ScrollReveal>
+          <p className="text-[0.7rem] md:text-xs font-medium tracking-[0.45em] uppercase text-[var(--color-ink-500)]">
+            {label}
+          </p>
+        </ScrollReveal>
+      ) : null}
 
       <ScrollReveal delay={0.1}>
         <span
-          className={`mt-4 block h-px w-10 ${ruleAlignClass}`}
+          className={`${label ? "mt-4" : ""} block h-px w-10 ${ruleAlignClass}`}
           style={{ background: "var(--color-ink-400)", opacity: 0.45 }}
         />
       </ScrollReveal>
@@ -530,7 +492,7 @@ function LeafCaption({ label, date, caption, leaf, align }: LeafCaptionProps) {
           className="mt-10 text-[0.65rem] tracking-[0.4em] uppercase text-[var(--color-ink-500)] tabular-nums"
           style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 500 }}
         >
-          Trang 0{leaf} <span className="opacity-50">/ 05</span>
+          Trang 0{leaf} <span className="opacity-50">/ 04</span>
         </p>
       </ScrollReveal>
     </div>
@@ -598,91 +560,5 @@ function FretworkRule() {
         <span aria-hidden className="block h-px w-12 md:w-20 bg-[var(--color-ink-400)] opacity-40" />
       </div>
     </ScrollReveal>
-  );
-}
-
-/* ────────────────────────────────────────────────────────────────────
-   LEAF 5 — Typographic finale. No photo: the wedding date itself is
-   the page. The journey ends here, and the page hands off to the
-   ceremonial blocks (marquee → Families → Events) right after.
-
-   This leaf is the climax of the album's progression: the previous
-   leaves used ornament sparingly; this one pulls every ceremonial
-   element together — the large Prata date, a Pinyon Script & at hero
-   scale, the vermilion seal stamp, and a single-line invitation
-   closing the loop.
-   ──────────────────────────────────────────────────────────────────── */
-function LeafWedding() {
-  return (
-    <article className="relative flex flex-col items-center text-center pt-8 md:pt-12">
-      <ScrollReveal>
-        <p className="text-[0.7rem] md:text-xs font-medium tracking-[0.5em] uppercase text-[var(--color-ink-500)]">
-          Bây giờ
-        </p>
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.1}>
-        <span
-          className="mt-5 block h-px w-10 mx-auto"
-          style={{ background: "var(--color-seal)", opacity: 0.55 }}
-        />
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.25}>
-        <h3
-          className="font-luxury mt-8 text-[var(--color-ink-900)] tabular-nums"
-          style={{
-            fontSize: "clamp(2.6rem, 1.6rem + 5vw, 5.5rem)",
-            lineHeight: 1.0,
-            paddingBlock: "0.08em",
-            letterSpacing: "0.04em",
-          }}
-        >
-          02 · 08 · 2026
-        </h3>
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.32}>
-        <p
-          className="mt-3 text-[var(--color-ink-500)] font-light italic text-[0.95rem] md:text-[1rem]"
-          style={{ lineHeight: 1.6 }}
-        >
-          Chủ Nhật, ngày 2 tháng 8 năm 2026
-        </p>
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.4}>
-        <span
-          aria-hidden
-          className="font-script block text-[var(--color-seal)] mt-6"
-          style={{
-            fontSize: "clamp(4rem, 2.6rem + 5.5vw, 6.5rem)",
-            lineHeight: 0.9,
-          }}
-        >
-          &amp;
-        </span>
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.55}>
-        <p
-          className="mt-8 max-w-[34ch] mx-auto text-[var(--color-ink-700)] font-light italic text-[1rem] md:text-[1.0625rem]"
-          style={{ lineHeight: 1.7 }}
-        >
-          Phần còn lại,
-          <br />
-          xin được kể tiếp cùng quý quan khách.
-        </p>
-      </ScrollReveal>
-
-      <ScrollReveal delay={0.7}>
-        <p
-          className="mt-12 text-[0.65rem] tracking-[0.4em] uppercase text-[var(--color-ink-500)] tabular-nums"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 500 }}
-        >
-          Trang 05 <span className="opacity-50">/ 05</span>
-        </p>
-      </ScrollReveal>
-    </article>
   );
 }
