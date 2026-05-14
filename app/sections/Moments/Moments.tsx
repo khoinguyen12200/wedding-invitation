@@ -51,6 +51,18 @@ const PHOTOS = {
     focal: "50% 40%",
     tilt: -2.6,
   },
+  herGrad: {
+    src: "/photo_2026-05-11_14-42-42.jpg",
+    alt: "Em mặc áo cử nhân đen đỏ trong ngày tốt nghiệp.",
+    focal: "50% 32%",
+    tilt: 1.4,
+  },
+  hisGrad: {
+    src: "/photo_2026-05-11_14-42-46.jpg",
+    alt: "Anh trong áo cử nhân ôm bó hoa trước giảng đường.",
+    focal: "50% 40%",
+    tilt: -1.8,
+  },
   studio0266: {
     src: "/photos/ld3_0266-1280.jpg",
     alt: "Ảnh studio: anh trong vest đen, em trong áo cưới trắng, cùng nhìn xuống bó hoa.",
@@ -282,7 +294,32 @@ function LeafNow({ reduceMotion }: { reduceMotion: boolean | null }) {
         align="center"
       />
 
-      <div className="mt-14 md:mt-20 relative w-full grid grid-cols-2 gap-4 md:gap-14 items-center max-w-[720px]">
+      {/* "Then" — graduation pair, smaller, staggered offset on desktop.
+          Sits above the studio pair so the eye reads chronologically
+          from school days to wedding attire, mirroring the "trải qua
+          nhiều thăng trầm" arc in the caption. No Pinyon ornament here;
+          the romantic flourish lives below with the studio pair. */}
+      <div className="mt-14 md:mt-20 w-full grid grid-cols-2 gap-4 md:gap-10 items-center max-w-[520px]">
+        <div className="md:mt-6 justify-self-end w-full max-w-[220px] md:max-w-[240px]">
+          <PhotoMat
+            photo={PHOTOS.herGrad}
+            aspectClass="aspect-[3/4]"
+            delay={0.2}
+            reduceMotion={reduceMotion}
+          />
+        </div>
+        <div className="md:-mt-6 w-full max-w-[220px] md:max-w-[240px]">
+          <PhotoMat
+            photo={PHOTOS.hisGrad}
+            aspectClass="aspect-[3/4]"
+            delay={0.3}
+            reduceMotion={reduceMotion}
+          />
+        </div>
+      </div>
+
+      {/* "Now" — studio pair, larger, bound by hero-scale Pinyon &. */}
+      <div className="mt-12 md:mt-16 relative w-full grid grid-cols-2 gap-4 md:gap-14 items-center max-w-[720px]">
         <div className="justify-self-end w-full max-w-[300px] md:max-w-[340px]">
           <PhotoMat
             photo={PHOTOS.studio0266}
