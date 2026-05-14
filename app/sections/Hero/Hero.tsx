@@ -11,6 +11,10 @@ export function Hero({ side }: HeroProps) {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
 
+  const weekday = side.ceremony.solarFull.split(",")[0];
+  const provinceShort = side.address.province.replace(/^Thành phố\s+/, "");
+  const placeLine = `${weekday} · ${provinceShort}`;
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -38,8 +42,13 @@ export function Hero({ side }: HeroProps) {
           className="relative h-full w-full"
         >
           <picture>
+            {/* Portrait viewports (phones AND tall desktop windows, e.g. 9:16)
+                get the portrait crop. Order matters — the first matching source
+                wins, so the orientation rule must come before the landscape
+                fallback. Otherwise a tall desktop window picks the landscape
+                file and object-cover crops the bride off the side. */}
             <source
-              media="(max-width: 767px)"
+              media="(max-width: 767px), (orientation: portrait)"
               srcSet="/photos/ld3_0608-640.jpg 640w, /photos/ld3_0608-1280.jpg 1280w, /photos/ld3_0608-1920.jpg 1920w"
               sizes="100vw"
             />
@@ -113,9 +122,10 @@ export function Hero({ side }: HeroProps) {
       {/* RIGHT-EDGE VERTICAL CEREMONIAL COLUMN — desktop only. Replaces the
           old top-right ceremony date block with a single vertical strip that
           reads top-to-bottom along the right side of the frame. Carries the
-          solar date, the lunar year, and the traditional Vietnamese wish
-          "Trăm năm hạnh phúc" (a hundred years of happiness). The column
-          sits between the inner frame line and the photo edge. */}
+          solar date, the lunar year, and a save-the-date line (weekday +
+          province) so a guest can answer "what kind of day, in what city?"
+          without scrolling. The column sits between the inner frame line and
+          the photo edge. */}
       <motion.div
         initial={{ opacity: 0, y: -32 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,7 +139,7 @@ export function Hero({ side }: HeroProps) {
           <span className="block w-px h-8 bg-[var(--color-ink-500)]/55" />
           <span>{`Năm ${side.ceremony.lunar.split(" ").slice(-2).join(" ")}`}</span>
           <span className="block w-px h-8 bg-[var(--color-ink-500)]/55" />
-          <span className="text-[var(--color-ink-900)]">Trăm năm hạnh phúc</span>
+          <span className="text-[var(--color-ink-900)]">{placeLine}</span>
         </span>
       </motion.div>
 
@@ -145,7 +155,8 @@ export function Hero({ side }: HeroProps) {
           className="font-script flex flex-col items-stretch"
           style={{
             color: "var(--color-ink-900)",
-            textShadow: "0 1px 18px rgba(245,237,221,0.45)",
+            textShadow:
+              "0 0 22px rgba(255,255,255,0.55), 0 0 8px rgba(255,255,255,0.4), 0 1px 18px rgba(245,237,221,0.45)",
           }}
         >
           <ScriptName
@@ -190,8 +201,8 @@ export function Hero({ side }: HeroProps) {
             {side.ceremony.solarDisplay}
           </span>
           <span className="h-px flex-1 bg-[var(--color-ink-400)]/50" />
-          <span className="text-[0.65rem] font-medium tracking-[0.32em] uppercase italic text-[var(--color-ink-500)] whitespace-nowrap">
-            Trăm năm hạnh phúc
+          <span className="text-[0.65rem] font-medium tracking-[0.32em] uppercase text-[var(--color-ink-700)] whitespace-nowrap">
+            {placeLine}
           </span>
         </motion.div>
       </motion.div>

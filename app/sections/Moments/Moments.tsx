@@ -151,9 +151,9 @@ function Header() {
           className="mt-7 mx-auto max-w-[38ch] text-[var(--color-ink-700)] font-light text-[1.0625rem] md:text-[1.125rem]"
           style={{ lineHeight: 1.65 }}
         >
-          Hành trình của chúng con,
+          Không kể hết được,
           <br />
-          từ những ngày thường đến ngày trọng đại.
+          chỉ kịp giữ lại vài khoảnh khắc trên đường đi.
         </p>
       </ScrollReveal>
     </header>
@@ -172,7 +172,7 @@ function LeafMountain({ reduceMotion }: { reduceMotion: boolean | null }) {
         <LeafCaption
           label="Đường lên Đà Lạt"
           date="Ngày đông · Đà Lạt"
-          caption="Đi xa lần đầu, mới biết ai là nhà của mình."
+          caption="Sáng đó dậy sớm để kịp biển mây. Lạnh buốt, mây thì bày ra ngay dưới chân."
           leaf={2}
           align="left"
         />
@@ -202,7 +202,7 @@ function LeafDaLat({ reduceMotion }: { reduceMotion: boolean | null }) {
       <LeafCaption
         label="Mùa lạnh"
           date="Hoàng hôn · Phố núi"
-          caption="Lạnh ở ngoài, ấm ở trong. Hai chiếc áo len và một câu chuyện cũ kể lại lần thứ trăm."
+          caption="Chiều xuống chậm, hai đứa cũng chậm theo. Ngồi nán trên cỏ một chút nữa, không nói gì cũng được."
         leaf={3}
         align="center"
       />
@@ -283,7 +283,7 @@ function LeafGraduation({ reduceMotion }: { reduceMotion: boolean | null }) {
         <LeafCaption
           label="Tốt nghiệp"
           date="Mùa hè · Cần Thơ"
-          caption="Mỗi đứa một ngày ra trường. Từ đó, hai con đường thành một."
+          caption="Hai ngày tốt nghiệp khác nhau, hai bức ảnh chụp riêng. Không ai đoán được sẽ tới đây."
           leaf={1}
           align="left"
         />
@@ -293,19 +293,21 @@ function LeafGraduation({ reduceMotion }: { reduceMotion: boolean | null }) {
 }
 
 /* ────────────────────────────────────────────────────────────────────
-   LEAF 4 — Overlap pair. The most intimate photographic leaf — home
-   life on the eve of the wedding. A larger photo dominates with a
-   smaller second photo nested into its corner, as if dropped on the
-   album page. Caption sits to the left and starts to point forward.
+   LEAF 4 — Overlap pair. The reflection beat. The previous leaves
+   describe specific moments; this one steps back and summarizes the
+   journey before handing off to the typographic finale. The two
+   photos still play (overlap pair, larger + nested smaller), but the
+   caption no longer narrates them — it's a "where we are now" line
+   pointing at the wedding date.
    ──────────────────────────────────────────────────────────────────── */
 function LeafHome({ reduceMotion }: { reduceMotion: boolean | null }) {
   return (
     <article className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
       <div className="md:col-span-5 md:order-1 order-2">
         <LeafCaption
-          label="Đêm muộn"
-          date="Đêm khuya · Nhà mình"
-          caption="Sau bao chuyến đi xa, một góc nhỏ vừa đủ cho hai đứa. Và một ngày đang đợi phía trước."
+          label="Tới hôm nay"
+          date="Mùa hè · 2026"
+          caption="Chừng đó năm, chừng đó chuyến đi, chừng đó câu chuyện. Đủ để biết ngày 02·08 sẽ là của chúng con."
           leaf={4}
           align="left"
         />
@@ -317,7 +319,7 @@ function LeafHome({ reduceMotion }: { reduceMotion: boolean | null }) {
           <PhotoMat
             photo={PHOTOS.homeCuddly}
             aspectClass="aspect-[4/5]"
-            stamp={{ text1: "TỐI MUỘN", text2: "NHÀ MÌNH", corner: "tr", tilt: 5 }}
+            stamp={{ text1: "MÙA HÈ", text2: "MMXXVI", corner: "tr", tilt: 5 }}
             delay={0.2}
             reduceMotion={reduceMotion}
           />
@@ -667,9 +669,9 @@ function LeafWedding() {
           className="mt-8 max-w-[34ch] mx-auto text-[var(--color-ink-700)] font-light italic text-[1rem] md:text-[1.0625rem]"
           style={{ lineHeight: 1.7 }}
         >
-          Chương kế tiếp,
+          Phần còn lại,
           <br />
-          xin được viết cùng quý quan khách.
+          xin được kể tiếp cùng quý quan khách.
         </p>
       </ScrollReveal>
 
