@@ -196,7 +196,7 @@ function LeafDaLat({ reduceMotion }: { reduceMotion: boolean | null }) {
   return (
     <article className="flex flex-col items-center">
       <LeafCaption
-        date="Đà Lạt"
+        date="Những chuyến đi"
         caption="Chuyến du lịch cùng nhau đầu tiên, và là nơi chúng mình yêu thích nhất."
         leaf={2}
         align="center"
