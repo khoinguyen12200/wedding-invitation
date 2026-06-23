@@ -5,7 +5,9 @@ import { Moments } from "../sections/Moments/Moments";
 import { Families } from "../sections/Families/Families";
 import { Events } from "../sections/Events/Events";
 import { ThankYou } from "../sections/ThankYou/ThankYou";
-import { IntroOverlay } from "../sections/IntroOverlay/IntroOverlay";
+import { Cover } from "../sections/Cover/Cover";
+import { MusicProvider } from "../audio/MusicProvider";
+import { MusicToggle } from "../components/MusicToggle";
 import { SmoothScroll } from "../components/SmoothScroll";
 import { CursorDot } from "../components/CursorDot";
 import { Marquee } from "../components/Marquee";
@@ -27,9 +29,10 @@ export default function Home() {
   const side = resolveSide(pathname);
 
   return (
-    <>
+    <MusicProvider>
       <SmoothScroll />
-      <IntroOverlay />
+      <Cover />
+      <MusicToggle />
       <CursorDot />
       <main>
         <Hero side={side} />
@@ -44,6 +47,6 @@ export default function Home() {
         <Events side={side} />
         <ThankYou />
       </main>
-    </>
+    </MusicProvider>
   );
 }
