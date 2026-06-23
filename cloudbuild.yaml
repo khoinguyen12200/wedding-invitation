@@ -9,9 +9,14 @@
 #   1. Install deps and build the SPA into build/client.
 #   2. Deploy build/client to Firebase Hosting site `gk-ht`.
 
+# NOTE: Node is pinned to 22.22.3 (not the floating 22-slim). Node 22.23.0 /
+# 24.17.0 ship an http.Agent security backport that surfaces a false
+# "Premature close" FetchError inside firebase-tools, breaking `firebase
+# deploy`. 22.22.3 is the newest release before that regression. Revisit once
+# firebase-tools ships a fix.
 steps:
   - id: build
-    name: node:22-slim
+    name: node:22.22.3-slim
     entrypoint: bash
     args:
       - -c
@@ -21,7 +26,7 @@ steps:
         npm run build
 
   - id: deploy
-    name: node:22-slim
+    name: node:22.22.3-slim
     entrypoint: bash
     args:
       - -c
